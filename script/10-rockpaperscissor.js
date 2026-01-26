@@ -1,0 +1,105 @@
+ 
+          let score = JSON.parse(localStorage.getItem('score')) ;
+
+
+          function updatescoreElement() {
+          document.querySelector('.js-score')
+          .innerHTML = `Wins: ${score.win}, Losses: ${score.lose}, Ties: ${score.tie}`;
+          }
+
+          
+
+          if(score === null) {
+            score={
+              win: 0,
+              lose: 0,
+              tie: 0
+            };
+          }
+          updatescoreElement();
+
+          console.log(JSON.parse(localStorage.getItem('score'))); 
+
+       function  pickComputerMove () {
+           let computerMove = '';
+           const randomMove = Math.random();
+          if (randomMove >= 0 && randomMove < 1/3) {
+            computerMove = 'rock';
+          } 
+          else if (randomMove >= 1/3 && randomMove < 2/3) {
+            computerMove = 'paper';
+          } 
+          else {
+            computerMove = 'scissor';  
+
+          }  
+         return computerMove;
+       }
+
+       function resultOfGame(computerMove,userMove) {
+        let result = '';
+
+        if (userMove === 'scissors') {
+          if (computerMove === 'rock') {
+            result = 'You lose!';
+            score.lose +=1;
+          } 
+          else if (computerMove === 'paper') {
+            result = 'You win!';
+            score.win +=1;
+
+          } 
+          else {
+            result = 'Tie!';
+            score.tie +=1;
+
+          } 
+        
+
+          }
+       if (userMove === 'paper'){
+            
+          if (computerMove === 'rock') {
+            result = 'You win!';
+            score.win +=1;
+          } 
+          else if (computerMove === 'paper') {
+            result = 'Tie!';
+            score.tie +=1;
+          } 
+          else {
+            result = 'You lose!';  
+            score.lose +=1;
+          } 
+         
+
+          }
+
+      if (userMove === 'rock'){
+          if (computerMove === 'rock') {
+            result = 'Tie!';
+            score.tie +=1;
+          } 
+          else if (computerMove === 'paper') {
+            result = 'You lose!';
+            score.lose +=1;
+          } 
+          else {
+            result = 'You win!';
+            score.win +=1;
+          } 
+         
+      }
+
+      localStorage.setItem('score', JSON.stringify(score)); 
+      updatescoreElement();
+
+      document.querySelector('.js-result')
+      .innerHTML = result;
+          
+      document.querySelector('.js-moves')
+      .innerHTML = `You: <img src = 'images/${userMove}-emoji.png' class="move-icon">,
+       Computer: <img src = 'images/${computerMove}-emoji.png' class="move-icon">`;
+          
+
+    }
